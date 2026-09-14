@@ -1,5 +1,5 @@
 from goblin import Goblin
-
+from hero import Hero
 
 ARENA_NAME = "The Closed Horshoe but Bigger and not as Skinny"
 
@@ -20,6 +20,17 @@ def main():
 
     print("But no hero has answered the call... yet.")
 
+    hero = Hero("Jerry", "Melee", 25, 10)
+
+    print(f"{hero.name} enters the arena with {hero.health} health. Hero class is {hero.heroClass}. Hero defense is {hero.defense}. Hero critical chance is {hero.critChance}%.")
+
+    heroAttack = hero.Attack()
+
+    goblin.take_damage(heroAttack)
+
+    if goblin.is_alive:
+        goblinAttack = goblin.attack()
+        hero.TakeDamage(goblinAttack)
 
 if __name__ == "__main__":
     main()
