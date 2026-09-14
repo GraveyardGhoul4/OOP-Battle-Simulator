@@ -18,7 +18,7 @@ class Hero:
             return random.randint(1, self.attack_power)
     
     def TakeDamage(self, damage):
-        damage -= round(self.defense * 0.5)
+        damage -= max(0,round(self.defense * 0.5))
         self.health = max(0, self.health-damage)
         print(f"{self.name} took {damage} damage. {self.health} health remaining.")
 
