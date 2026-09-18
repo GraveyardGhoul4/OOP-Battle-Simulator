@@ -3,19 +3,17 @@ from hero import Hero
 
 ARENA_NAME = "The Closed Horshoe but Bigger and not as Skinny"
 
-def battle(hero: Hero, enemy: Goblin):
-    while hero.IsAlive() and enemy.is_alive():
+def battle(hero: Hero, enemies: list):
+    while hero.IsAlive() and len(enemies) > 0:
+        length = len(enemies)
         heroDamage = hero.Attack()
-        enemy.take_damage(heroDamage)
-
-        if enemy.is_alive():
-            enemyDamage = enemy.attack()
+        enemies[length-1].take_damage(heroDamage)
+        if enemies[length-1].is_alive():
+            enemyDamage = enemies[length-1].attack()
             hero.TakeDamage(enemyDamage)
-
-    if hero.IsAlive():
-        print(f"{hero.name} Wins!")
-    else:
-        print(f"{enemy.name} Wins!")
+        else:
+            print(f"{enemies[length-1].name} has been defeated")
+            enemies.pop()
 
 def main():
     """Open the arena and introduce its first opponent."""
@@ -37,7 +35,9 @@ def main():
 
     print(f"{hero.name} enters the arena with {hero.health} health. Hero class is {hero.heroClass}. Hero defense is {hero.defense}. Hero critical chance is {hero.critChance}%.")
 
-    battle(hero, goblin)
+    goblins = [goblin, newGoblin]
+
+    battle(hero, goblins)
 
 if __name__ == "__main__":
     main()
