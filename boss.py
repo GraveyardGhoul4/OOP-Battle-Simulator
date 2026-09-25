@@ -7,6 +7,10 @@ class Boss(Enemy):
         super().__init__(name, health)
         self.attackPower = attackPower
 
+    def attack(self):
+            """Return a random amount of damage."""
+            return random.randint(1, self.attack_power * 2)
+
     def StealHealth(self, hero: Hero):
         health = random.randint(1,round(hero.health/4))
         hero.health -= health
