@@ -31,4 +31,10 @@ class Hero:
         print(f"{self.name} took {damage} damage. {self.health} health remaining.")
 
     def IsAlive(self):
-        return self.health > 0
+        alive = self.health > 0
+        if not alive:
+            print(f"{self.name} has been defeated")
+        return alive
+
+    def Heal(self, amount):
+        self.health += amount

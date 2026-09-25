@@ -1,9 +1,11 @@
 from goblin import Goblin
+from boss import Boss
 from hero import Hero
+import random
 
 ARENA_NAME = "The Closed Horshoe but Bigger and not as Skinny"
 
-def battle(hero: Hero, enemies: list):
+def battleEnemies(hero: Hero, enemies: list):
     while hero.IsAlive() and len(enemies) > 0:
         length = len(enemies)
         heroDamage = hero.Attack()
@@ -14,6 +16,19 @@ def battle(hero: Hero, enemies: list):
         else:
             print(f"{enemies[length-1].name} has been defeated")
             enemies.pop()
+
+def battleBoss(hero: Hero, boss: Boss):
+    while hero.IsAlive() and boss.is_alive():
+        heroDamage = hero.Attack()
+        boss.take_damage(heroDamage)
+        if boss.is_alive():
+            if random.randint(1, 5) == 5:
+                boss.StealHealth(hero)
+            else:
+                bossDamage = boss.attack()
+                hero.TakeDamage(bossDamage)
+        else:
+            print(f"{boss.name} has been defeated")
 
 def main():
     """Open the arena and introduce its first opponent."""
@@ -37,7 +52,14 @@ def main():
 
     goblins = [goblin, newGoblin]
 
-    battle(hero, goblins)
+    battleEnemies(hero, goblins)
+
+    boss = Boss("Big Bad Boss", 175, 20)
+
+    hero.Heal(100)
+    
+    battleBoss(hero, boss)
+    
 
 if __name__ == "__main__":
     main()
